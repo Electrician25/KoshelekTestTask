@@ -1,5 +1,4 @@
-﻿using KoshelekWebServer.IServices;
-using KoshelekWebServer.Services;
+﻿using KoshelekWebServer.Services;
 using MessageSenderClient.Services;
 
 namespace KoshelekWebServer.Extensions
@@ -8,8 +7,8 @@ namespace KoshelekWebServer.Extensions
     {
         public static IServiceCollection AddApplicationtServices(this IServiceCollection services)
         {
-            services.AddTransient<ISendMessageService, SendMessageService>();
-            services.AddTransient<IGetMessagesByDateService, GetMessagesByDateService>();
+            services.AddTransient<SendMessageService, SendMessageService>();
+            services.AddTransient<GetMessagesByDateService, GetMessagesByDateService>();
             return services;
         }
     }

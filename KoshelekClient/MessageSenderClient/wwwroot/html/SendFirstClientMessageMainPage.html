@@ -1,0 +1,26 @@
+﻿<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="main">
+        <h1>First Client</h1>
+    </div>
+    <div id="mainInput">
+        <form>
+            <div class="form-group">
+                <label for="inputMessage">Message</label>
+                <input type="text" class="form-control" id="inputMessage" aria-describedby="messageHelp" placeholder="Enter message">
+                <small id="messageHelp" class="form-text text-muted">Please write the message.</small>
+                <button type="button" id="sendMessageButton" onclick="createMessageJSON();" class="btn btn-primary">Send</button>
+                <div class="alert alert-success" hidden="true" id="success" role="alert">
+                    Succses!
+                </div>
+                <div class="alert alert-danger" hidden="true" id="error" role="alert">
+                    Error!
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="/js/SendFirstClientMessage.js"></script>
+</body>

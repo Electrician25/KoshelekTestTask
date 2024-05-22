@@ -1,13 +1,13 @@
 ﻿using DatabaseLevel.DAL.Entities;
 using DatabaseLevel.DAL.EntityFramework;
-using KoshelekWebServer.IServices;
 
 namespace MessageSenderClient.Services
 {
-    public class SendMessageService(ApplicationContext applicationContext) : ISendMessageService
+    public class SendMessageService(ApplicationContext applicationContext)
     {
         async public Task<Message> SendMessageServiceAsync(Message userMessage)
         {
+            userMessage.Date = DateTime.UtcNow;
             await applicationContext.Messages.AddAsync(userMessage);
             applicationContext.SaveChanges();
 
