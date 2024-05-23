@@ -6,12 +6,14 @@ namespace KoshelekWebServer.Services
 {
     public class SendMessageToClientBySocketsService
     {
-        private static ConcurrentBag<WebSocket> _sockets = new ConcurrentBag<WebSocket>();
+        private static ConcurrentBag<WebSocket> _sockets = new();
 
         public async Task ReceiveMessages(WebSocket webSocket)
         {
             var buffer = new byte[1024 * 4];
+
             _sockets.Add(webSocket);
+
             await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
         }
 
@@ -23,7 +25,11 @@ namespace KoshelekWebServer.Services
             {
                 if (socket.State == WebSocketState.Open)
                 {
-                    await socket.SendAsync(new ArraySegment<byte>(messageBuffer, 0, messageBuffer.Length), WebSocketMessageType.Text, true, CancellationToken.None);
+                    await socket.SendAsync
+                    (
+                        new ArraySegment<byte>(messageBuffer, 0, messageBuffer.Length),
+                        WebSocketMessageType.Text, true, CancellationToken.None
+                    );
                 }
             });
 

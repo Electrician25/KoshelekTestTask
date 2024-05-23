@@ -7,12 +7,15 @@ namespace MessageSenderClient.Controllers
 {
     [ApiController]
     [Route("/api/{controller}/")]
-    public class SendMessageController(SendMessageService sendMessageService) : ControllerBase
+    public class SendMessageController(SendMessageService sendMessageService,
+        CreateMessageService createMessageService) : ControllerBase
     {
         [HttpPost("Send")]
         async public Task<Message> SendMessageAsync([FromBody] Message message)
         {
-            await SendMessageToClientBySocketsService.BroadcastMessage(message.MessageText);
+            message.Date = DateTime.UtcNow;
+            await SendMessageToClientBySocketsService.BroadcastMessage(createMessageService.GetMessage(message));
+
             return await sendMessageService.SendMessageServiceAsync(message);
         }
     }

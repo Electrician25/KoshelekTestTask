@@ -18,7 +18,7 @@ namespace KoshelekClient.Controllers
         [Route("WriteMessage")]
         public IActionResult SendMessage()
         {
-            return _htmlResult(@"./wwwroot/html/WriteSecondClientMessageMainPage.html");
+            return _htmlResult(@"./wwwroot/html/WriteClientMessageMainPage.html");
         }
     }
 }
