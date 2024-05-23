@@ -12,15 +12,7 @@ namespace KoshelekWebServer.Services
         {
             var buffer = new byte[1024 * 4];
             _sockets.Add(webSocket);
-            WebSocketReceiveResult result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-
-            while (!result.CloseStatus.HasValue)
-            {
-                result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-            }
-            _sockets = new ConcurrentBag<WebSocket>(_sockets.Except(new[] { webSocket }));
-
-            await webSocket.CloseAsync(result.CloseStatus.Value, result.CloseStatusDescription, CancellationToken.None);
+            await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
         }
 
         public static async Task BroadcastMessage(string message)
