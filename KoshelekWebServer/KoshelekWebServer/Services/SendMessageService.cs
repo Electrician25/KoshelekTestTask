@@ -7,7 +7,6 @@ namespace MessageSenderClient.Services
     {
         async public Task<Message> SendMessageServiceAsync(Message userMessage)
         {
-            userMessage.Date = DateTime.UtcNow;
             await applicationContext.Messages.AddAsync(userMessage);
             applicationContext.SaveChanges();
 
