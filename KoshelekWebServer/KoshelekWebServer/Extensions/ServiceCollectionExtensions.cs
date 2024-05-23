@@ -9,6 +9,7 @@ namespace KoshelekWebServer.Extensions
         {
             services.AddTransient<SendMessageService, SendMessageService>();
             services.AddTransient<GetMessagesByDateService, GetMessagesByDateService>();
+            services.AddSingleton<SendMessageToClientBySocketsService, SendMessageToClientBySocketsService>();
             return services;
         }
     }
