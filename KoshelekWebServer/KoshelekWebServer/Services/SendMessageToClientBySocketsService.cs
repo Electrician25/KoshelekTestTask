@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KoshelekWebServer.Services
 {
-    public class SendMessageToClientBySocketsService
+    public class SendMessageToClientBySocketsService(ILogger<SendMessageToClientBySocketsService> logger)
     {
         private static ConcurrentBag<WebSocket> _sockets = new();
 
@@ -13,6 +13,8 @@ namespace KoshelekWebServer.Services
             var buffer = new byte[1024 * 4];
 
             _sockets.Add(webSocket);
+
+            logger.LogInformation("SendMessageToClientBySocketsService---> Listening...");
 
             await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
         }

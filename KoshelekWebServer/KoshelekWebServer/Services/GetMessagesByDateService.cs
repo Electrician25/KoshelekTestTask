@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KoshelekWebServer.Services
 {
-    public class GetMessagesByDateService(ApplicationContext aplicationContext)
+    public class GetMessagesByDateService(
+        ApplicationContext aplicationContext,
+        ILogger<GetMessagesByDateService> logger)
     {
         async public Task<Message[]> GetMessagesByDateServiceAsync(string date)
         {
