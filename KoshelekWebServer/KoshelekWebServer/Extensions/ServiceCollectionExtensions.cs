@@ -7,10 +7,10 @@ namespace KoshelekWebServer.Extensions
     {
         public static IServiceCollection AddApplicationtServices(this IServiceCollection services)
         {
-            services.AddTransient<SendMessageService, SendMessageService>();
-            services.AddTransient<CreateMessageService, CreateMessageService>();
-            services.AddTransient<GetMessagesByDateService, GetMessagesByDateService>();
-            services.AddSingleton<SendMessageToClientBySocketsService, SendMessageToClientBySocketsService>();
+            services.AddTransient<MessageSenderService, MessageSenderService>();
+            services.AddTransient<CreatorMessageService, CreatorMessageService>();
+            services.AddTransient<MessageByDateService, MessageByDateService>();
+            services.AddSingleton<MessageSenderBySocketService, MessageSenderBySocketService>();
 
             return services;
         }

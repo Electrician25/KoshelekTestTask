@@ -6,9 +6,9 @@ namespace KoshelekWebServer.Controllers
 {
     [ApiController]
     [Route("/api/{controller}/")]
-    public class SendMessageToClientBySocketsController(
-        SendMessageToClientBySocketsService sendMessageToClientBySocketsService,
-        ILogger<SendMessageToClientBySocketsController> logger)
+    public class MessageSenderBySocketController(
+        MessageSenderBySocketService sendMessageToClientBySocketsService,
+        ILogger<MessageSenderBySocketController> logger)
         : ControllerBase
     {
         [Route("ws")]

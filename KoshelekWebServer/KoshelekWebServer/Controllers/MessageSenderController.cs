@@ -7,10 +7,10 @@ namespace MessageSenderClient.Controllers
 {
     [ApiController]
     [Route("/api/{controller}/")]
-    public class SendMessageController
-        (SendMessageService sendMessageService,
-        CreateMessageService createMessageService,
-        ILogger<SendMessageController> logger)
+    public class MessageSenderController
+        (MessageSenderService sendMessageService,
+        CreatorMessageService createMessageService,
+        ILogger<MessageSenderController> logger)
         : ControllerBase
     {
         [HttpPost("Send")]
@@ -19,7 +19,7 @@ namespace MessageSenderClient.Controllers
             logger.LogInformation("Request---> send message by web-sockets {message}", message.MessageText);
 
             message.Date = DateTime.UtcNow;
-            await SendMessageToClientBySocketsService.BroadcastMessage(createMessageService.GetMessage(message));
+            await MessageSenderBySocketService.BroadcastMessage(createMessageService.GetMessage(message));
 
             return await sendMessageService.SaveMessageServiceAsync(message);
         }

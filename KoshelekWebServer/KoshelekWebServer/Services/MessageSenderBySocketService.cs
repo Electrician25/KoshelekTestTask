@@ -4,11 +4,11 @@ using System.Text;
 
 namespace KoshelekWebServer.Services
 {
-    public class SendMessageToClientBySocketsService(ILogger<SendMessageToClientBySocketsService> logger)
+    public class MessageSenderBySocketService(ILogger<MessageSenderBySocketService> logger)
     {
         private static ConcurrentBag<WebSocket> _sockets = new();
 
-        public async Task ReceiveMessages(WebSocket webSocket)
+        async public Task ReceiveMessages(WebSocket webSocket)
         {
             var buffer = new byte[1024 * 4];
 
