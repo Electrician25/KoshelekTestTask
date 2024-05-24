@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KoshelekWebServer", "KoshelekWebServer\KoshelekWebServer.csproj", "{1F13DD1B-182E-414C-A707-73E56AB46CC0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApplicationDatase.DAL", "ApplicationDatase.DAL\ApplicationDatase.DAL.csproj", "{195C5838-0118-456B-967E-D095A4CCA7C9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationDatase.DAL", "ApplicationDatase.DAL\ApplicationDatase.DAL.csproj", "{195C5838-0118-456B-967E-D095A4CCA7C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

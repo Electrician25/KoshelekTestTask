@@ -6,9 +6,9 @@ namespace KoshelekWebServer.Services
 {
     public class GetMessagesByDateService(ApplicationContext aplicationContext)
     {
-        async public Task<Message[]> GetMessagesByDateServiceAsync(Message message)
+        async public Task<Message[]> GetMessagesByDateServiceAsync(string date)
         {
-            return await aplicationContext.Messages.ToArrayAsync();
+            return await aplicationContext.Messages.Where(x => x.Date.ToString().Contains(date)).ToArrayAsync();
         }
     }
 }

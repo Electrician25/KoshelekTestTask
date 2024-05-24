@@ -8,10 +8,10 @@ namespace KoshelekWebServer.Controllers
     [Route("/api/{controller}/")]
     public class GetMessagesByDateController(GetMessagesByDateService getMessagesByDateService) : ControllerBase
     {
-        [HttpGet("Get")]
-        async public Task<Message[]> GetMessageByDateAsync(Message message)
+        [Route("Date")]
+        async public Task<Message[]> GetMessageByDateAsync(string dateTime)
         {
-            return await getMessagesByDateService.GetMessagesByDateServiceAsync(message);
+            return await getMessagesByDateService.GetMessagesByDateServiceAsync(dateTime);
         }
     }
 }
