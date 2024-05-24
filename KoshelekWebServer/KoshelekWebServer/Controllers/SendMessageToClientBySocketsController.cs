@@ -6,7 +6,10 @@ namespace KoshelekWebServer.Controllers
 {
     [ApiController]
     [Route("/api/{controller}/")]
-    public class SendMessageToClientBySocketsController(SendMessageToClientBySocketsService sendMessageToClientBySocketsService) : ControllerBase
+    public class SendMessageToClientBySocketsController(
+        SendMessageToClientBySocketsService sendMessageToClientBySocketsService,
+        ILogger<SendMessageToClientBySocketsController> logger)
+        : ControllerBase
     {
         [Route("ws")]
         async public Task ListenWeb()
@@ -14,11 +17,13 @@ namespace KoshelekWebServer.Controllers
             if (HttpContext.WebSockets.IsWebSocketRequest)
             {
                 WebSocket webSocket = await HttpContext.WebSockets.AcceptWebSocketAsync();
+                logger.LogInformation("Listen---> client by {webSocket}, webSocket state: {webSocke}", webSocket, webSocket.State);
                 await sendMessageToClientBySocketsService.ReceiveMessages(webSocket);
             }
             else
             {
-                HttpContext.Response.StatusCode = 400;
+                var response = HttpContext.Response.StatusCode = 400;
+                logger.LogInformation("Listen end, status code: {response}", response);
             }
         }
     }

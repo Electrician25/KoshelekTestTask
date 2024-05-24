@@ -1,4 +1,5 @@
 using KoshelekWebServer.Extensions;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,10 +17,25 @@ builder.AddApplicationContext();
 
 builder.Services.AddApplicationtServices();
 
+Log.Logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Host.ConfigureLogging(logging =>
+{
+    logging.AddSerilog();
+    logging.SetMinimumLevel(LogLevel.Information);
+})
+.UseSerilog();
+
 var app = builder.Build();
 
 app.UseCors(options =>
-    options.WithOrigins("https://localhost:7248/").AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+    options.WithOrigins("https://localhost:7248/")
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseWebSockets();
 
@@ -34,5 +50,7 @@ app.MapControllers();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.Logger.LogInformation("Starting the server");
 
 app.Run();
