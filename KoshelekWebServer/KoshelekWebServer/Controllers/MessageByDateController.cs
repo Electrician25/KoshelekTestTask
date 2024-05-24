@@ -6,13 +6,13 @@ namespace KoshelekWebServer.Controllers
 {
     [ApiController]
     [Route("/api/{controller}/")]
-    public class GetMessagesByDateController(
-        GetMessagesByDateService getMessagesByDateService,
-        ILogger<GetMessagesByDateService> logger)
+    public class MessageByDateController(
+        MessageByDateService getMessagesByDateService,
+        ILogger<MessageByDateService> logger)
         : ControllerBase
     {
         [Route("Date")]
-        async public Task<Message[]> GetMessageByDateAsync(string dateTime)
+        async public Task<Message[]> GetMessageByDateAsync(DateTime dateTime)
         {
             logger.LogInformation("Request---> find message by date {DateTime}", dateTime);
 

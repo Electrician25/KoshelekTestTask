@@ -1,5 +1,4 @@
-﻿
-async function getMessage() {
+﻿async function getMessage() {
     let input = document.getElementById("input").value;
     console.log(input);
     let messages = await sendGetRequest(`https://localhost:7179/api/GetMessagesByDate/Date?dateTime=${input}`);

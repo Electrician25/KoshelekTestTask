@@ -18,8 +18,9 @@ builder.AddApplicationContext();
 builder.Services.AddApplicationtServices();
 
 Log.Logger = new LoggerConfiguration()
-    .Enrich.FromLogContext()
+    .MinimumLevel.Information()
     .WriteTo.Console()
+    .WriteTo.File("Logs/logs.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 builder.Host.ConfigureLogging(logging =>

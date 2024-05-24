@@ -9,6 +9,7 @@ namespace DatabaseLevel.DAL.EntityFramework
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             Database.EnsureCreated();
         }
     }
