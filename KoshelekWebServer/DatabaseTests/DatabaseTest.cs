@@ -1,6 +1,11 @@
+using Castle.Core.Logging;
 using DatabaseLevel.DAL.Entities;
 using KoshelekWebServer.Interfaces;
+using KoshelekWebServer.Services;
+using MessageSenderClient.Controllers;
+using Microsoft.Extensions.Logging;
 using Moq;
+using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseTests
 {
@@ -19,14 +24,22 @@ namespace DatabaseTests
             _messageSenderBySocketService = new Mock<IMessageSenderBySocketService>();
         }
 
+        [Fact]
         public void WhenUserSendingMessage_AndMessageIsCorrect_ThenMessageShouldBeSaving()
         {
             // Arrange.
             Message message = new Message() { Id = 1, MessageText = "Hello!", Date = new DateTime(2024, 05, 24, 2, 34, 12) };
+            _messageSenderService.Setup(x => x.SaveMessageServiceAsync(message)).ReturnsAsync(message);
+            _messageCreatorService.Setup(x => x.GetMessage(message)).Returns($"MESSAGE={message.MessageText} DATE={message.Date}");
+            var logger = new Mock<ILogger<MessageSenderController>>();
+            var controller = new MessageSenderController(_messageSenderService.Object, _messageCreatorService.Object, logger.Object);
 
             // Act.
-            _messageSenderService.Setup(x => x.SaveMessageServiceAsync(message)).ReturnsAsync(message);
+            var resultController = controller.SendMessageAsync(message).Result;
+
             // Assert.
+            Assert.Equal(message.MessageText, resultController.MessageText);
+            Assert.True(message.Equals(resultController));
         }
 
         public void WhenUserSendingMessage_AndMessageIsNotCorrect_ThenMessageShouldBeNotSaving()

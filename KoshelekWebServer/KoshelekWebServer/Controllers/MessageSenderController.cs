@@ -1,6 +1,6 @@
 ﻿using DatabaseLevel.DAL.Entities;
+using KoshelekWebServer.Interfaces;
 using KoshelekWebServer.Services;
-using MessageSenderClient.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessageSenderClient.Controllers
@@ -8,9 +8,9 @@ namespace MessageSenderClient.Controllers
     [ApiController]
     [Route("/api/{controller}/")]
     public class MessageSenderController
-        (MessageSenderService sendMessageService,
-        CreatorMessageService createMessageService,
-        ILogger<MessageSenderController> logger)
+        (IMessageSenderService sendMessageService,
+        ICreatorMessageService createMessageService,
+        ILogger<MessageSenderController>? logger)
         : ControllerBase
     {
         [HttpPost("Send")]
