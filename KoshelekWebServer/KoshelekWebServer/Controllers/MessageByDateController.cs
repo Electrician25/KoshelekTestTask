@@ -1,5 +1,5 @@
 ﻿using DatabaseLevel.DAL.Entities;
-using KoshelekWebServer.Services;
+using KoshelekWebServer.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KoshelekWebServer.Controllers
@@ -7,8 +7,8 @@ namespace KoshelekWebServer.Controllers
     [ApiController]
     [Route("/api/{controller}/")]
     public class MessageByDateController(
-        MessageByDateService getMessagesByDateService,
-        ILogger<MessageByDateService> logger)
+        IMessageByDateService getMessagesByDateService,
+        ILogger<MessageByDateController> logger)
         : ControllerBase
     {
         [Route("Date")]

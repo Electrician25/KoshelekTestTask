@@ -10,7 +10,7 @@ namespace MessageSenderClient.Controllers
     public class MessageSenderController
         (IMessageSenderService sendMessageService,
         ICreatorMessageService createMessageService,
-        ILogger<MessageSenderController>? logger)
+        ILogger<MessageSenderController> logger)
         : ControllerBase
     {
         [HttpPost("Send")]

@@ -7,6 +7,6 @@ namespace DatabaseLevel.DAL.Entities
         public int Id { get; set; }
         [MaxLength(128)]
         public string? MessageText { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }
