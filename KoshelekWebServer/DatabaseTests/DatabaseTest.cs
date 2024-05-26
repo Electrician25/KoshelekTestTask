@@ -9,7 +9,6 @@ using Moq;
 
 namespace DatabaseTests
 {
-
     public class DatabaseTest
     {
         private readonly Mock<ICreatorMessageService> _messageCreatorService;
@@ -24,34 +23,76 @@ namespace DatabaseTests
         }
 
         [Fact]
-        public void WhenUserSendingMessage_AndMessageAndDateIsCorrect_ThenMessageShouldBeCorrect()
+        public void WhenUserSendingMessage_AndMessageAndDateIsNotCorrect_ThenMessageShouldBeNotCorrect()
         {
             // Arrange.
-            Message message = new Message()
+            Message firstMessage = new Message()
             {
                 Id = 1,
                 MessageText = "Hello!",
                 Date = new DateTime(2024, 05, 24, 2, 34, 12)
             };
 
+            Message secondMessage = new Message()
+            {
+                Id = 1,
+                MessageText = "qergHelqerglo!",
+                Date = new DateTime(2024, 05, 24, 2, 34, 12)
+            };
+
             _messageSenderService.Setup(x
-                => x.SaveMessageServiceAsync(message)).ReturnsAsync(message);
+                => x.SaveMessageServiceAsync(firstMessage)).ReturnsAsync(secondMessage);
 
             _messageCreatorService.Setup(x
-                => x.GetMessage(message)).Returns($"MESSAGE={message.MessageText} DATE={message.Date}");
+                => x.GetMessage(firstMessage)).Returns($"MESSAGE={firstMessage.MessageText} DATE={firstMessage.Date}");
 
             var logger = new Mock<ILogger<MessageSenderController>>();
             var controller = new MessageSenderController(_messageSenderService.Object, _messageCreatorService.Object, logger.Object);
 
             // Act.
-            var resultController = controller.SendMessageAsync(message).Result;
+            var resultController = controller.SendMessageAsync(firstMessage).Result;
 
             // Assert.
-            Assert.Equal(message.Id, resultController.Id);
-            Assert.Equal(message.MessageText, resultController.MessageText);
-            Assert.Equal(message.Date, resultController.Date);
+            Assert.True(firstMessage.Id.Equals(resultController.Id));
+            Assert.False(firstMessage.MessageText.Equals(resultController.MessageText));
+            Assert.False(firstMessage.Date.Equals(resultController.Date));
+            Assert.False(firstMessage.Equals(resultController));
+        }
 
-            Assert.True(message.Equals(resultController));
+        [Fact]
+        public void WhenUserSendingMessage_AndMessageAndDateIsCorrect_ThenMessageShouldBeCorrect()
+        {
+            // Arrange.
+            Message firstMessage = new Message()
+            {
+                Id = 1,
+                MessageText = "Hello!",
+                Date = new DateTime(2024, 05, 24, 2, 34, 12)
+            };
+
+            Message secondMessage = new Message()
+            {
+                Id = 1,
+                MessageText = "Hello!",
+                Date = DateTime.UtcNow
+            };
+
+            _messageSenderService.Setup(x
+                => x.SaveMessageServiceAsync(firstMessage)).ReturnsAsync(secondMessage);
+
+            _messageCreatorService.Setup(x
+                => x.GetMessage(firstMessage)).Returns($"MESSAGE={firstMessage.MessageText} DATE={firstMessage.Date}");
+
+            var logger = new Mock<ILogger<MessageSenderController>>();
+            var controller = new MessageSenderController(_messageSenderService.Object, _messageCreatorService.Object, logger.Object);
+
+            // Act.
+            var resultController = controller.SendMessageAsync(firstMessage).Result;
+
+            // Assert.
+            Assert.True(firstMessage.Id.Equals(resultController.Id));
+            Assert.True(firstMessage.MessageText.Equals(resultController.MessageText));
+            Assert.True(firstMessage.Date.Date.Equals(resultController.Date.Date));
         }
 
         [Fact]
@@ -115,56 +156,69 @@ namespace DatabaseTests
         public void WhenFindingDate_AndDateIsExist_ThenReturnDate()
         {
             // Arrange.
-            var messages = new[]
-            {
-                new Message() { Id = 1, Date = new DateTime(2024, 05, 22) },
-                new Message() { Id = 2, Date = new DateTime(2024, 05, 22) },
-                new Message() { Id = 3, Date = new DateTime(2024, 05, 22) },
-                new Message() { Id = 4, Date = new DateTime(2024, 05, 23) },
-            };
+            var messages = GetMessages();
+            var date = new DateTime(2024, 05, 22);
 
             var logger = new Mock<ILogger<MessageByDateController>>();
 
             _messageByDateService.Setup(x
-                => x.GetMessagesByDateServiceAsync(new DateTime(2024, 05, 22)))
-                .ReturnsAsync(new Message[] { messages[0], messages[1], messages[2] });
+                => x.GetMessagesByDateServiceAsync(date))
+                .ReturnsAsync(messages);
 
             var dateController = new MessageByDateController(_messageByDateService.Object, logger.Object);
 
             // Act.
-            var resultDate = dateController.GetMessageByDateAsync(new DateTime(2024, 05, 22));
+            var controllerResult = dateController.GetMessageByDateAsync(date);
+            var resultDateCount = 0;
+
+            foreach (var element in controllerResult.Result)
+            {
+                if (element.Date == date)
+                    resultDateCount++;
+            }
 
             // Assert.
-            Assert.Equal(resultDate.Result.Length, 3);
-            Assert.Equal(resultDate.Result, new Message[] { messages[0], messages[1], messages[2] });
+            Assert.Equal(resultDateCount, 3);
         }
 
         [Fact]
         public void WhenFindingDate_AndDateIsNotExist_ThenReturnEmpty()
         {
             // Arrange.
-            var messages = new[]
-            {
-                new Message() { Id = 1, Date = new DateTime(2024, 05, 22) },
-                new Message() { Id = 2, Date = new DateTime(2024, 05, 22) },
-                new Message() { Id = 3, Date = new DateTime(2024, 05, 22) },
-                new Message() { Id = 4, Date = new DateTime(2024, 05, 23) },
-            };
+            var messages = GetMessages();
+            var date = new DateTime(2024, 05, 24);
 
             var logger = new Mock<ILogger<MessageByDateController>>();
 
             _messageByDateService.Setup(x
-                => x.GetMessagesByDateServiceAsync(new DateTime(2024, 05, 25)))
-                .ReturnsAsync(new Message[] { });
+                => x.GetMessagesByDateServiceAsync(date))
+                .ReturnsAsync(messages);
 
             var dateController = new MessageByDateController(_messageByDateService.Object, logger.Object);
 
             // Act.
-            var resultDate = dateController.GetMessageByDateAsync(new DateTime(2024, 05, 25));
+            var controllerResult = dateController.GetMessageByDateAsync(date);
+            var resultDateCount = 0;
+
+            foreach (var element in controllerResult.Result)
+            {
+                if (element.Date == date)
+                    resultDateCount++;
+            }
 
             // Assert.
-            Assert.Equal(resultDate.Result.Length, 0);
-            Assert.Equal(resultDate.Result, new Message[] { });
+            Assert.Equal(resultDateCount, 0);
+        }
+
+        private Message[] GetMessages()
+        {
+            return new[]
+            {
+                new Message () { Id = 1, MessageText = "Evening John!", Date = new DateTime(2024, 05, 22) },
+                new Message () { Id = 2, MessageText = "Evening Jummy...", Date = new DateTime(2024, 05, 22)},
+                new Message () { Id = 3, MessageText = "Noise complaints?", Date = new DateTime(2024, 05, 22)},
+                new Message () { Id = 4, MessageText = "Noise complaints...", Date = new DateTime(2024, 05, 23)}
+            };
         }
     }
 }

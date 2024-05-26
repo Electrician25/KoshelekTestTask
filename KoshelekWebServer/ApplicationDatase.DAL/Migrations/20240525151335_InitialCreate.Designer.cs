@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ApplicationDatase.DAL.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240521210427_InitialCreate")]
+    [Migration("20240525151335_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,11 +33,12 @@ namespace ApplicationDatase.DAL.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("Date")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("MessageText")
-                        .HasColumnType("text");
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
 
                     b.HasKey("Id");
 

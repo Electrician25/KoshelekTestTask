@@ -20,6 +20,7 @@
             return response.json();
         })
 
+
     return search_result;
 }
 
@@ -31,5 +32,5 @@ const createMessageJSON = async () => {
         date: null
     });
     
-    await sendPostRequest(json, `https://localhost:7179/api/SendMessage/Send`);
+    await sendPostRequest(json, `http://localhost:25545/api/MessageSender/Send`);
 }

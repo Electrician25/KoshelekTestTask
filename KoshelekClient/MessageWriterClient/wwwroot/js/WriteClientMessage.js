@@ -1,5 +1,5 @@
 ﻿async function connect() {
-    let connectionUrl = "wss://localhost:7179/api/SendMessageToClientBySockets/ws";
+    let connectionUrl = "ws://localhost:25545/api/MessageSenderBySocket/ws";
     const webSocket = new WebSocket(connectionUrl);
     console.log(webSocket.readyState);
     let input = document.getElementById("input");

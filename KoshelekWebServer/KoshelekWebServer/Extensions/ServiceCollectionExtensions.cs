@@ -1,4 +1,5 @@
-﻿using KoshelekWebServer.Services;
+﻿using KoshelekWebServer.Interfaces;
+using KoshelekWebServer.Services;
 using MessageSenderClient.Services;
 
 namespace KoshelekWebServer.Extensions
@@ -7,9 +8,9 @@ namespace KoshelekWebServer.Extensions
     {
         public static IServiceCollection AddApplicationtServices(this IServiceCollection services)
         {
-            services.AddTransient<MessageSenderService, MessageSenderService>();
-            services.AddTransient<CreatorMessageService, CreatorMessageService>();
-            services.AddTransient<MessageByDateService, MessageByDateService>();
+            services.AddTransient<IMessageSenderService, MessageSenderService>();
+            services.AddTransient<ICreatorMessageService, CreatorMessageService>();
+            services.AddTransient<IMessageByDateService, MessageByDateService>();
             services.AddSingleton<MessageSenderBySocketService, MessageSenderBySocketService>();
 
             return services;

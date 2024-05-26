@@ -32,6 +32,42 @@ builder.Host.ConfigureLogging(logging =>
 
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    try
+    {
+        Log.Logger.Error($"ORIGIN: {string.Join(",", context.Request.Headers["Origin"])}");
+
+    }
+
+    catch
+    {
+        Log.Logger.Error("#1");
+    }
+
+    try
+    {
+        Log.Logger.Error($"Request-Method: {string.Join(",", context.Request.Headers["Access-Control-Request-Method"])}");
+    }
+
+    catch
+    {
+        Log.Logger.Error("#2");
+    }
+
+    try
+    {
+
+        Log.Logger.Error($"Request-Headers: {string.Join(",", context.Request.Headers["Access-Control-Request-Headers"])}");
+    }
+
+    catch
+    {
+        Log.Logger.Error("#3");
+    }
+    await next();
+});
+
 app.UseCors(options =>
     options.WithOrigins("https://localhost:7248/")
     .AllowAnyOrigin()
