@@ -1,7 +1,7 @@
 ﻿async function getMessage() {
     let input = document.getElementById("input").value;
     console.log(input);
-    let messages = await sendGetRequest(`https://localhost:7179/api/GetMessagesByDate/Date?dateTime=${input}`);
+    let messages = await sendGetRequest(`http://localhost:25545/api/MessageByDate/Date?dateTime=${input}`);
     if (messages.length == 0) {
         renderMessageOnPage();
         let empty = document.createElement("a");

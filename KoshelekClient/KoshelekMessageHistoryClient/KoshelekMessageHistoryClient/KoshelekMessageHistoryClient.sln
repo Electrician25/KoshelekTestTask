@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KoshelekMessageHistoryClient", "KoshelekMessageHistoryClient\KoshelekMessageHistoryClient.csproj", "{282DA77A-6FA6-439C-AE1D-9B65C31E026E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KoshelekMessageHistoryClient", "KoshelekMessageHistoryClient.csproj", "{6B07793B-94C4-4C0F-B7A1-FD79A9DCCACF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{282DA77A-6FA6-439C-AE1D-9B65C31E026E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{282DA77A-6FA6-439C-AE1D-9B65C31E026E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{282DA77A-6FA6-439C-AE1D-9B65C31E026E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{282DA77A-6FA6-439C-AE1D-9B65C31E026E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B07793B-94C4-4C0F-B7A1-FD79A9DCCACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B07793B-94C4-4C0F-B7A1-FD79A9DCCACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B07793B-94C4-4C0F-B7A1-FD79A9DCCACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B07793B-94C4-4C0F-B7A1-FD79A9DCCACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DA6C046E-3C64-4D7A-8A90-F3CACF85EDBC}
+		SolutionGuid = {803CBFB4-A8FE-4ADF-9CFB-536A17146362}
 	EndGlobalSection
 EndGlobal
