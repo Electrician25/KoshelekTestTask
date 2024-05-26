@@ -3,12 +3,34 @@ networks:
   message-service-network:
     driver: bridge
 services:
+  client-writer:
+    image: clientwriter1
+    networks:
+      - message-service-network
+    ports:
+      - 8282:8080  
+
+  client-sender:
+    image: clientsenderimage6
+    networks:
+      - message-service-network
+    ports:
+      - 8181:8080  
+
+  client-history:
+    image: clienthistory
+    networks:
+      - message-service-network
+    ports:
+      - 8383:8080 
+    
+  
   webservice:
     container_name: web-server-container
     build:
       context: .
       dockerfile: ./KoshelekWebServer/Dockerfile
-    image: web-server-image
+    image: dotnetmonster/web-server-dnm
     ports:
       - 25545:8080
     networks:
