@@ -6,9 +6,12 @@ Test-Task
 2) docker compose up
 
 web-server (http://localhost:25545/)
-  Клиент для отправки сообщений (http://localhost:8181/api/html/SendMessage)
-  Клиент для прослушивания по web-socket (http://localhost:8282/api/html/WriteMessage), так же для прослушивания можно активировать несколько клиентов.
-  Клиент для просмотра сообщений по дате (http://localhost:8383/api/html/GetHisoryMessage)
+
+Клиент для отправки сообщений (http://localhost:8181/api/html/SendMessage)
+
+Клиент для прослушивания по web-socket (http://localhost:8282/api/html/WriteMessage), так же для прослушивания можно активировать несколько клиентов.
+
+Клиент для просмотра сообщений по дате (http://localhost:8383/api/html/GetHisoryMessage)
 
 ## Technology Stack:
 * ASP.NET Core
