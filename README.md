@@ -11,7 +11,7 @@ web-server (http://localhost:25545/)
 
 Клиент для прослушивания по web-socket (http://localhost:8282/api/html/WriteMessage), так же для прослушивания можно активировать несколько клиентов.
 
-Клиент для просмотра сообщений по дате (http://localhost:8383/api/html/GetHisoryMessage)
+Клиент для просмотра сообщений по дате (http://localhost:8383/api/html/GetHisoryMessage) дату можно указать в формате 05/27/2024
 
 ## Technology Stack:
 * ASP.NET Core
