@@ -4,21 +4,21 @@ networks:
     driver: bridge
 services:
   client-writer:
-    image: clientwriter1
+    image: dotnetmonster/clientwriter
     networks:
       - message-service-network
     ports:
       - 8282:8080  
 
   client-sender:
-    image: clientsenderimage6
+    image: dotnetmonster/clientsenderimage
     networks:
       - message-service-network
     ports:
       - 8181:8080  
 
   client-history:
-    image: clienthistory
+    image: dotnetmonster/clienthistory12
     networks:
       - message-service-network
     ports:
